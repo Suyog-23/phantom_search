@@ -3,29 +3,31 @@ import requests
 from bs4 import BeautifulSoup as bs
 # Create your views here.
 
-# homepage
-def homepage(request):
-    if request.method=='POST':
-        search_query=request.POST['user_search']
-        url = 'https://www.ask.com/web?q='+search_query
-        res = requests.get(url)
-        edited = bs(res.text, 'lxml')
-        
-        filtered = edited.find_all('div', {'class':'PartialRelatedSearch'})
 
-        final_results = []
+def search(request):
+    
+    if request.method == 'POST':
+        search = request.POST['user_search']
+        url = 'https://www.ask.com/web?q='+search
+        result = requests.get(url)
+        filtered = bs(result.text, 'lxml')
 
-        for result in filtered:
-            search_title = result.find(class_='PartialSearchResults-item-title').text
-            search_url = result.find('a').find('href')
-            search_description = result.find(class_='PartialSearchResults-item-abstract')
+        result_listings = filtered.find_all('div', {'class': 'PartialSearchResults-item'})
 
-            filtered.append((search_title, search_url, search_description))
+        final_result = []
+
+        for result in result_listings:
+            result_title = result.find(class_='PartialSearchResults-item-title').text
+            result_url = result.find('a').get('href')
+            result_desc = result.find(class_='PartialSearchResults-item-abstract').text
+
+            final_result.append((result_title, result_url, result_desc))
 
         context = {
-            'final_results':final_results
+            'final_result': final_result
         }
-        return render(request, 'main/home.html', context)
+
+        return render(request, 'main/result.html', context)
 
     else:
-        return render(request, 'main/home.html')
+        return render(request, 'main/result.html')
