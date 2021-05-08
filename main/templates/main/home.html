@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block body %}
+
+<div style="margin-top:100px">
+<p align='center'><img src="static/images/download.png" ></p>
+</div>
+
+<!-- search form -->
+<form method="POST">
+    {% csrf_token %} 
+<p align="center" style="margin-top: 50px;">
+
+<div class="input-group mb-3">
+  
+  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="user_search">
+</div>
+<p align="center" style="margin-top: 30px;"><button type="submit" class="btn btn-info">Search</button></p>
+</p>
+</form>
+<!-- end search form -->
+
+{% endblock %}
