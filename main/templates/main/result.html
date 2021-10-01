@@ -3,6 +3,12 @@
 
 {% block body %}
 
+<style type="text/css">
+    .form-control{
+        background: rgba(255, 255, 255, 0.8);
+    }
+</style>
+
 <div style="margin-top:100px">
     <p align='center'><img src="static/images/download.png" ></p>
     </div>
@@ -14,7 +20,7 @@
     
     <div class="input-group mb-3">
       
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="user_search">
+      <input type="text" placeholder="Whats your query?" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="user_search">
     </div>
     <p align="center" style="margin-top: 30px;"><button type="submit" class="btn btn-info">Search</button></p>
     </p>
@@ -25,11 +31,11 @@
 
     {% for result in final_result %}
   
- <p align="center">   <div class="card" style="width: 100%; margin-top: 30px;">
+ <p align="center">   <div class="card" style="width: 100%; margin-top: 30px; background: rgba(255, 255, 255, 0.9);">
         <div class="card-body">
           <h5 class="card-title"><a href="{{ result.1 }}">{{ result.0 }}</a></h5>
           <p class="card-text">{{ result.2 }}</p>
-          <a href="#" class="card-link" style="color: #F1C40F ;">{{ result.1 }}</a>
+          <a href="{{ result.1 }}" class="card-link" style="color: grey ;">{{ result.1 }}</a>
         </div>
       </div>
      </p>
